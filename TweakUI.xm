@@ -102,7 +102,7 @@ BOOL wantsDeviceSpoofing, wantsCompatabilityMode;
 %hook UITraitCollection
 +(UITraitCollection *)traitCollectionWithHorizontalSizeClass:(UIUserInterfaceSizeClass)arg1 {
     if(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
-        return %orig(2);
+        return %orig(UIUserInterfaceSizeClassRegular);
     return %orig;
 }
 %end

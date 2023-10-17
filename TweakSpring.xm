@@ -6,6 +6,7 @@ short statusBarStyle, screenRoundness, appswitcherRoundness, iPadDockNumIcons, n
 BOOL enabled, wantsHomeBarSB, wantsHomeBarLS, wantsReduceRows, wantsRoundedCorners, wantsXButtons;
 BOOL wantsCCGrabber, wantsProudLock, wantsHideSBCC,wantsLSShortcuts, wantsBatteryPercent, wantsiPadDock;
 BOOL wantsiPadMultitasking, wantsRecentApps, wantsiPadAppSwitcher, wantsDockInApps, wantsDockInSwitcher;
+BOOL noBreadCrumbs;
 
 %hook BSPlatform
 - (NSInteger)homeButtonType {
@@ -180,8 +181,9 @@ BOOL wantsiPadMultitasking, wantsRecentApps, wantsiPadAppSwitcher, wantsDockInAp
 %hook SBIconListGridLayoutConfiguration
 - (NSUInteger)numberOfPortraitColumns {
     NSUInteger rows = MSHookIvar<NSUInteger>(self, "_numberOfPortraitRows");
-    if (rows == 1)
+    if (rows == 1) {
         return iPadDockNumIcons;
+    }
 	return %orig;
 }
 %end
