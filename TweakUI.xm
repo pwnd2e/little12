@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #include <sys/sysctl.h>
 #include <sys/utsname.h>
+#import <rootless.h>
 #define CGRectSetY(rect, y) CGRectMake(rect.origin.x, y, rect.size.width, rect.size.height)
 
 NSInteger statusBarStyle, keyboardSpacing;
@@ -219,7 +220,7 @@ BOOL wantsDeviceSpoofing, wantsCompatabilityMode;
 void loadPrefs() {
      @autoreleasepool {
         
-        NSDictionary const *prefs = [[NSDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/com.ryannair05.little12.plist"];
+        NSDictionary const *prefs = [[NSDictionary alloc] initWithContentsOfFile:ROOT_PATH_NS(@"/var/mobile/Library/Preferences/com.ryannair05.little12.plist")];
 
         if (prefs) {
             enabled = [[prefs objectForKey:@"enabled"] boolValue];
@@ -299,7 +300,7 @@ void loadPrefs() {
                 }
             }
 
-            if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/KeyboardPlus.dylib"]) {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:ROOT_PATH_NS(@"/Library/MobileSubstrate/DynamicLibraries/KeyboardPlus.dylib")]) {
 
                 if (wantsKeyboardDock) %init(KeyboardDock);
                 else %init(ForceDefaultKeyboard);

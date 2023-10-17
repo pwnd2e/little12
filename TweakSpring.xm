@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <rootless.h>
 #define CGRectSetY(rect, y) CGRectMake(rect.origin.x, y, rect.size.width, rect.size.height)
 
 short statusBarStyle, screenRoundness, appswitcherRoundness, iPadDockNumIcons, numberOfRecentApps;
@@ -471,7 +472,7 @@ CGFloat offset = 0;
 void loadPrefs() {
      @autoreleasepool {
 
-        #define path @"/var/mobile/Library/Preferences/com.ryannair05.little12.plist"
+        #define path ROOT_PATH_NS(@"/var/mobile/Library/Preferences/com.ryannair05.little12.plist")
 
         NSDictionary const *prefs = [[NSDictionary alloc] initWithContentsOfFile:path];
 
@@ -504,7 +505,7 @@ void loadPrefs() {
             noBreadCrumbs = [[prefs objectForKey:@"noBreadCrumbs"] boolValue];
         }
         else {
-            NSString *pathDefault = @"/Library/PreferenceBundles/little12prefs.bundle/defaults.plist";
+            NSString *pathDefault = ROOT_PATH_NS(@"/Library/PreferenceBundles/little12prefs.bundle/defaults.plist");
             NSFileManager *fileManager = [NSFileManager defaultManager];
 
             if (![fileManager fileExistsAtPath:path]) {
